@@ -14,8 +14,7 @@ export default function reducer(state = [], action) {
         return state.filter(bug => bug.id != action.payload.id)
 
     else if (action.type === actions.BUG_RESOLVED)
-        return state.map(bug => {
-            bug.resolved = bug.id == action.payload.id ? true : bug.resolved;
-            return bug;
-        });
+        return state.map(bug =>
+            bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
+        );
 }
